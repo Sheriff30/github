@@ -15,6 +15,7 @@ body {
   width: 100dvw;
   display: grid;
   align-items: center;
+  background-color: var(--background-color);
 }
 
 main {
@@ -30,6 +31,8 @@ main {
   --background-color: #f6f8ff;
   --dark-background: #2b3442;
   --white: #fefefe;
+  --black: #222731;
+  --error: #f74646;
 }
 
 /* header styles  */
@@ -61,4 +64,53 @@ header {
 
 .themeMode span:nth-child(2) {
   display: flex;
+}
+
+/* form styles */
+
+.searchForm {
+  padding: 1rem;
+  background-color: var(--white);
+  border-radius: 15px;
+
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  display: flex;
+  margin-right: 2.4rem;
+}
+
+.searchForm input {
+  border: none;
+  font-size: 1.8rem;
+  outline: none;
+  font-family: "Space Mono", monospace;
+  max-width: 25.4rem;
+  width: 100%;
+  color: var(--black);
+}
+
+.searchForm .btn {
+  padding: 1.3rem 2.3rem;
+  border: none;
+  border-radius: 15px;
+  background-color: var(--primary-color);
+  color: var(--white);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.error {
+  color: var(--error);
+  font-weight: 600;
+  display: none;
+}
+
+.form-group {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
 }
