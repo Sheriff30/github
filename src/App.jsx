@@ -3,15 +3,18 @@ import Header from "./ui/Header";
 import fetchUser from "./services/fetchUser";
 import { useEffect, useRef, useState } from "react";
 import Search from "./ui/Search";
+import UserDetailsDesktop from "./ui/UserDetailsDesktop";
+import toast, { Toaster } from "react-hot-toast";
 
 function App() {
-  const [user, setUser] = useState("octocat");
+  const [user, setUser] = useState("");
   const userRef = useRef(null);
 
-  const { data, isError } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["user", user],
     queryFn: () => fetchUser(user),
     enabled: !!user,
+    retry: 0,
   });
 
   function onSubmit(e) {
@@ -21,22 +24,25 @@ function App() {
 
     setUser(newUser);
     userRef.current.value = "";
+    console.log(data);
   }
 
   useEffect(() => {
-    const errorElement = document.querySelector(".error");
+    if (data) {
+      toast.success("User Found");
+    }
 
     if (isError) {
-      setUser("octocat");
-      errorElement.style.display = "inline-block";
+      toast.error("Something Wrong , Please try Again");
     }
-  }, [isError]);
+  }, [data, isLoading, isError]);
 
   return (
     <main>
       <Header />
       <Search onSubmit={onSubmit} userRef={userRef} isError={isError} />
-      <div>{data?.login}</div>
+      <UserDetailsDesktop data={data} isLoading={isLoading} isError={isError} />
+      <Toaster />
     </main>
   );
 }
