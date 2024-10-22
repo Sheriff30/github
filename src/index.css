@@ -1,7 +1,7 @@
 * {
   padding: 0;
   margin: 0;
-  box-sizing: bnorder-box;
+  box-sizing: border-box;
 }
 
 html {
@@ -318,4 +318,14 @@ header {
   flex-direction: column;
 
   color: var(--black);
+}
+
+.toast-error,
+.toast-success {
+  background-color: var(--background-color);
+  color: var(--black);
+}
+
+.opacity50 {
+  opacity: 50%;
 }

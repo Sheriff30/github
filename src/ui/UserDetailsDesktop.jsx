@@ -3,9 +3,21 @@ import locationIcon from "../assets/icon-location.svg";
 import companyIcon from "../assets/icon-company.svg";
 import twitterIcon from "../assets/icon-twitter.svg";
 import urlIcon from "../assets/icon-website.svg";
+import locationIconWhite from "../assets/icon-location-white.svg";
+import companyIconWhite from "../assets/icon-company-white.svg";
+import twitterIconWhite from "../assets/icon-twitter-white.svg";
+import urlIconWhite from "../assets/icon-website-white.svg";
+import { useContext } from "react";
+import DarkModeContext from "../context/DarkModeContext";
+import useUser from "../services/useUser";
+import UserContext from "../context/UserContext";
 
-/* eslint-disable react/prop-types */
-function UserDetailsDesktop({ data, isError, isLoading }) {
+function UserDetailsDesktop() {
+  const { user } = useContext(UserContext);
+
+  const { darkMode } = useContext(DarkModeContext);
+  const { data, isLoading, isError } = useUser(user);
+
   const userData = {
     userImg: data?.avatar_url,
     name: data?.name,
@@ -22,18 +34,26 @@ function UserDetailsDesktop({ data, isError, isLoading }) {
     ],
 
     meta: [
-      { id: 1, icon: locationIcon, data: data?.location ?? "Not Available" },
+      {
+        id: 1,
+        icon: darkMode ? locationIconWhite : locationIcon,
+        data: data?.location ?? "Not Available",
+      },
       {
         id: 2,
-        icon: twitterIcon,
+        icon: darkMode ? twitterIconWhite : twitterIcon,
         data: data?.twitter_username ?? "Not Available",
       },
       {
         id: 3,
-        icon: urlIcon,
+        icon: darkMode ? urlIconWhite : urlIcon,
         data: data?.blog === "" ? "Not Available" : data?.blog,
       },
-      { id: 4, icon: companyIcon, data: data?.company ?? "Not Available" },
+      {
+        id: 4,
+        icon: darkMode ? companyIconWhite : companyIcon,
+        data: data?.company ?? "Not Available",
+      },
     ],
   };
 
@@ -93,7 +113,10 @@ function UserDetailsDesktop({ data, isError, isLoading }) {
             <div className="user-meta">
               {userData.meta.map((e) => {
                 return (
-                  <div className="user-meta__item" key={e.id}>
+                  <div
+                    className={`user-meta__item ${e.data === "Not Available" ? "opacity50" : ""}`}
+                    key={e.id}
+                  >
                     <div className="user-meta__icon">
                       <img src={e.icon} alt={e.data} />
                     </div>

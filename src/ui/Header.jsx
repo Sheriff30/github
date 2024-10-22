@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import darkModeIcon from "../assets/icon-moon.svg";
 import lightModeIcon from "../assets/icon-sun.svg";
+import DarkModeContext from "../context/DarkModeContext";
 
 function Header() {
-  const [darkMode, setDarkMode] = useState(true);
+  const { darkMode, setDarkMode } = useContext(DarkModeContext);
 
   const toggleDarkMode = () => {
     setDarkMode((darkMode) => !darkMode);

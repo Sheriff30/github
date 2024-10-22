@@ -1,6 +1,23 @@
-/* eslint-disable react/prop-types */
-function Search({ onSubmit, userRef, isError }) {
-  console.log(isError);
+import { useContext, useRef } from "react";
+import useUser from "../services/useUser";
+import UserContext from "../context/UserContext";
+
+function Search() {
+  const { setUser, user } = useContext(UserContext);
+  const { isError } = useUser(user);
+
+  const userRef = useRef(null);
+
+  function onSubmit(e) {
+    e.preventDefault();
+    const newUser = userRef.current.value;
+    if (!newUser) return;
+
+    setUser(newUser);
+
+    userRef.current.value = "";
+  }
+
   return (
     <form className="searchForm" action="" onSubmit={onSubmit}>
       <span className="search-icon">
