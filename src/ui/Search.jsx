@@ -1,10 +1,8 @@
 import { useContext, useRef } from "react";
-import useUser from "../services/useUser";
 import UserContext from "../context/UserContext";
 
 function Search() {
-  const { setUser, user } = useContext(UserContext);
-  const { isError } = useUser(user);
+  const { setUser } = useContext(UserContext);
 
   const userRef = useRef(null);
 
@@ -30,10 +28,6 @@ function Search() {
         maxLength={40}
       />
       <div className="form-group">
-        <div className={`error ${isError ? "show-error" : ""}`}>
-          No results{" "}
-        </div>
-
         <button className="btn">Search</button>
       </div>
     </form>

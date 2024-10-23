@@ -1,16 +1,16 @@
 import Header from "./ui/Header";
 import { useEffect, useState } from "react";
 import Search from "./ui/Search";
-import UserDetailsDesktop from "./ui/UserDetailsDesktop";
 import toast, { Toaster } from "react-hot-toast";
 import DarkModeContext from "./context/DarkModeContext";
 import UserContext from "./context/UserContext";
 import useUser from "./services/useUser";
+import UserDetails from "./ui/UserDetails";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [user, setUser] = useState("");
-  const { data, isLoading, isError } = useUser(user);
+  const { data, isError } = useUser(user);
 
   useEffect(() => {
     if (data) {
@@ -24,7 +24,7 @@ function App() {
         className: "toast-error",
       });
     }
-  }, [data, isLoading, isError]);
+  }, [data, isError]);
 
   return (
     <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
@@ -32,7 +32,8 @@ function App() {
         <main>
           <Header />
           <Search />
-          <UserDetailsDesktop />
+          <UserDetails />
+
           <Toaster />
         </main>
       </UserContext.Provider>
