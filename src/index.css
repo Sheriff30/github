@@ -368,6 +368,12 @@ header {
   }
 }
 
+.toast-success,
+.toast-error {
+  background-color: var(--background-color);
+  color: var(--black);
+}
+
 @media (max-width: 1024px) {
   .detials-box-desktop,
   .loading-desktop {
