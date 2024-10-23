@@ -1,5 +1,6 @@
 import { useContext, useRef } from "react";
 import UserContext from "../context/UserContext";
+import searchIcon from "../assets/icon-search.svg";
 
 function Search() {
   const { setUser } = useContext(UserContext);
@@ -19,7 +20,7 @@ function Search() {
   return (
     <form className="searchForm" action="" onSubmit={onSubmit}>
       <span className="search-icon">
-        <img src="/src/assets/icon-search.svg" alt="search icon" />
+        <img src={searchIcon} alt="search icon" />
       </span>
       <input
         type="text"
