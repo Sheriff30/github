@@ -8,15 +8,24 @@ import DetailsBoxMobile from "./DetailsBoxMobile";
 import LoadingMobile from "./LoadingMobile";
 
 function UserDetails() {
-  const { error, status } = useContext(UserContext);
+  const { data, error, isLoading } = useContext(UserContext);
   return (
     <div className="details-box">
-      {!status && <NoData />}
+      {isLoading && (
+        <>
+          <LoadingDesktop />
+          <LoadingMobile />
+        </>
+      )}
       {error && <ErrorContainer />}
-      {status === "success" && <DetailsBoxDesktop />}
-      {status === "success" && <DetailsBoxMobile />}
-      {status === "loading" && <LoadingDesktop />}
-      {status === "loading" && <LoadingMobile />}
+      {!data && !error && <NoData />}
+
+      {data && (
+        <>
+          <DetailsBoxDesktop />
+          <DetailsBoxMobile />
+        </>
+      )}
     </div>
   );
 }

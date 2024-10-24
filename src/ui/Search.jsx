@@ -5,37 +5,40 @@ import toast from "react-hot-toast";
 
 function Search() {
   const userRef = useRef(null);
-  const { setData, setStatus, setError } = useContext(UserContext);
+  const { setData, setError, setIsLoading } = useContext(UserContext);
 
   async function onSubmit(e) {
     e.preventDefault();
     const newUser = userRef.current.value.trim();
     if (!newUser) return;
 
-    setStatus("loading");
+    setIsLoading(true);
     setError(null);
+    setData(null);
 
     try {
       const apiRes = await fetch(`https://api.github.com/users/${newUser}`);
+
       if (!apiRes.ok) {
         throw new Error(`User not found`);
       }
+
       const userData = await apiRes.json();
 
       setData(userData);
-      setStatus("success");
+      setIsLoading(false);
       toast.success("User Found", {
         className: "toast-success",
       });
     } catch (err) {
+      setError(err.message);
+      setIsLoading(false);
       toast.error(err.message, {
         className: "toast-error",
       });
-      setError(err.message);
-      setStatus("error");
+    } finally {
+      userRef.current.value = "";
     }
-
-    userRef.current.value = "";
   }
 
   return (

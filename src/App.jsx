@@ -8,14 +8,14 @@ import UserDetails from "./ui/UserDetails";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
-  const [data, setData] = useState("");
-  const [status, setStatus] = useState("");
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(null);
   const [error, setError] = useState(null);
 
   return (
     <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
       <UserContext.Provider
-        value={{ data, setData, status, setStatus, error, setError }}
+        value={{ data, setData, isLoading, setIsLoading, error, setError }}
       >
         <main>
           <Header />
