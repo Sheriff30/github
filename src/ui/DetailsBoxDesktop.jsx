@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import UserContext from "../context/UserContext";
-import useUser from "../services/useUser";
 import formatDate from "../services/formatDate";
 
 import urlIcon from "../assets/icon-website.svg";
@@ -15,9 +14,8 @@ import locationIconWhite from "../assets/icon-location-white.svg";
 import DarkModeContext from "../context/DarkModeContext";
 
 function DetailsBoxDesktop() {
-  const { user } = useContext(UserContext);
-  const { data } = useUser(user);
   const { darkMode } = useContext(DarkModeContext);
+  const { data } = useContext(UserContext);
 
   const userData = {
     image: data?.avatar_url,

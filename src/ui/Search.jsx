@@ -1,18 +1,39 @@
 import { useContext, useRef } from "react";
-import UserContext from "../context/UserContext";
 import searchIcon from "../assets/icon-search.svg";
+import UserContext from "../context/UserContext";
+import toast from "react-hot-toast";
 
 function Search() {
-  const { setUser } = useContext(UserContext);
-
   const userRef = useRef(null);
+  const { setData, setStatus, setError } = useContext(UserContext);
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault();
-    const newUser = userRef.current.value;
+    const newUser = userRef.current.value.trim();
     if (!newUser) return;
 
-    setUser(newUser);
+    setStatus("loading");
+    setError(null);
+
+    try {
+      const apiRes = await fetch(`https://api.github.com/users/${newUser}`);
+      if (!apiRes.ok) {
+        throw new Error(`User not found`);
+      }
+      const userData = await apiRes.json();
+
+      setData(userData);
+      setStatus("success");
+      toast.success("User Found", {
+        className: "toast-success",
+      });
+    } catch (err) {
+      toast.error(err.message, {
+        className: "toast-error",
+      });
+      setError(err.message);
+      setStatus("error");
+    }
 
     userRef.current.value = "";
   }

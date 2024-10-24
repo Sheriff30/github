@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import UserContext from "../context/UserContext";
-import useUser from "../services/useUser";
 import formatDate from "../services/formatDate";
 
 import urlIcon from "../assets/icon-website.svg";
@@ -15,8 +14,7 @@ import locationIconWhite from "../assets/icon-location-white.svg";
 import DarkModeContext from "../context/DarkModeContext";
 
 function DetailsBoxMobile() {
-  const { user } = useContext(UserContext);
-  const { data } = useUser(user);
+  const { data } = useContext(UserContext);
   const { darkMode } = useContext(DarkModeContext);
 
   const userData = {
